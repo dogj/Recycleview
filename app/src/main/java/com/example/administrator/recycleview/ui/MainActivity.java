@@ -35,7 +35,13 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent("com.example.administrator.recycleview.ui.double_item");
+                startActivity(intent);
+            }
+        });
 //        recyclerView= (RecyclerView)findViewById(R.id.rec_list);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 //
