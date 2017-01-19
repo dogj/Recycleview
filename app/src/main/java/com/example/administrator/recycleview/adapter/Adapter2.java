@@ -7,9 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.recycleview.R;
+import com.example.administrator.recycleview.model.Data;
 import com.example.administrator.recycleview.model.ListItem;
+import com.example.administrator.recycleview.ui.MainActivity;
 
 import java.util.List;
 
@@ -17,11 +20,11 @@ import java.util.List;
  * Created by Administrator on 2017/1/9.
  */
 
-public class Adapter2 extends RecyclerView.Adapter<Adapter2.MyViewHolder> {
+public class Adapter2 extends RecyclerView.Adapter<Adapter2.MyViewHolder> implements View.OnClickListener {
 
     private List<ListItem> listData;
     private LayoutInflater inflater;
-
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
     public Adapter2 (List<ListItem> listData, Context c){
 
         this.inflater= LayoutInflater.from(c);
@@ -33,13 +36,15 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.MyViewHolder> {
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.list_name,parent,false);
-
+        view.setOnClickListener(this);
         return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         ListItem item =listData.get(position);
+        String[] a={"哈哈","呵呵","嘻嘻","咩咩"};
+        holder.itemView.setTag(a[position]);
         holder.title.setText(item.getTitles());
         holder.icon.setImageResource(item.getImageResId() );
     }
@@ -49,7 +54,7 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.MyViewHolder> {
         return listData.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView title;
         private ImageView icon;
         private View container;
@@ -63,5 +68,21 @@ public class Adapter2 extends RecyclerView.Adapter<Adapter2.MyViewHolder> {
 
 
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mOnItemClickListener != null) {
+            //注意这里使用getTag方法获取数据
+            mOnItemClickListener.onItemClick(v,(String)v.getTag());
+        }
+    }
+
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    public  interface OnRecyclerViewItemClickListener {
+        void onItemClick(View view , String data);
     }
 }

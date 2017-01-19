@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.administrator.recycleview.R;
 import com.example.administrator.recycleview.adapter.Adapter2;
@@ -23,6 +25,12 @@ public class double_item extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Adapter2 adapter = new Adapter2(Data.getListData(), this);
+        adapter.setOnItemClickListener(new Adapter2.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, String data) {
+                Toast.makeText(double_item.this,data,Toast.LENGTH_SHORT).show();
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 

@@ -8,6 +8,7 @@ public class ListItem {
     private String titles;
     private int imageResId;
 
+
     public void setImageResId(int imageResId) {
         this.imageResId = imageResId;
     }
